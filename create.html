@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新しいキャラシ作成</title>
+</head>
+<body>
+    <h1>新しいキャラシ作成</h1>
+    <form id="character-form">
+        <label for="name">キャラクター名:</label>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="password">パスワード:</label>
+        <input type="password" id="password" name="password"><br><br>
+
+        <!-- 他のキャラシート情報の入力フィールドを追加 -->
+
+        <button type="submit">保存</button>
+    </form>
+
+<script>
+    document.getElementById('character-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        fetch('/save-charasheet', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => alert(data))
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
+</body>
+</html>

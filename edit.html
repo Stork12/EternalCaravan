@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>キャラシ編集</title>
+</head>
+<body>
+    <h1>キャラシ編集</h1>
+    <form id="edit-character-form">
+        <label for="name">キャラクター名:</label>
+        <input type="text" id="name" name="name" value="既存のキャラクター名"><br><br>
+
+        <label for="password">パスワード:</label>
+        <input type="password" id="password" name="password"><br><br>
+
+        <!-- 他のキャラシート情報の編集フィールドを追加 -->
+
+        <button type="submit">更新</button>
+    </form>
+
+<script>
+    document.getElementById('edit-character-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // デフォルトのフォーム送信を防ぐ
+
+        const formData = new FormData(this); // フォームのデータを取得
+        fetch('/edit-charasheet', { // 編集用のエンドポイントにリクエストを送信
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data); // レスポンスメッセージを表示
+            window.location.href = '/'; // トップページにリダイレクト（オプション）
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
+</body>
+</html>
